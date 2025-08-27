@@ -5,7 +5,7 @@ import (
 	"encoding/json"
 	"flag"
 	"fmt"
-	"html"
+	htmlstd "html"
 	"io"
 	"log"
 	"net/http"
@@ -15,7 +15,7 @@ import (
 	"strings"
 	"time"
 
-	"golang.org/x/net/html"
+	xhtml "golang.org/x/net/html"
 )
 
 type Config struct {
@@ -131,14 +131,14 @@ func fetchOG(target string) (OG, error) {
 }
 
 func parseOGHTML(body []byte, base string) OG {
-	doc, err := html.Parse(bytes.NewReader(body))
+	doc, err := xhtml.Parse(bytes.NewReader(body))
 	if err != nil {
 		return OG{}
 	}
 	var og OG
-	var f func(*html.Node)
-	f = func(n *html.Node) {
-		if n.Type == html.ElementNode && strings.EqualFold(n.Data, "meta") {
+	var f func(*xhtml.Node)
+	f = func(n *xhtml.Node) {
+		if n.Type == xhtml.ElementNode && strings.EqualFold(n.Data, "meta") {
 			var prop, name, cont string
 			for _, a := range n.Attr {
 				switch strings.ToLower(a.Key) {
@@ -194,12 +194,12 @@ func absolutize(raw string, baseStr string) (string, error) {
 }
 
 func buildHTML(path, to string, og OG) string {
-	title := html.EscapeString(og.Title)
-	desc := html.EscapeString(og.Description)
-	img := html.EscapeString(og.Image)
+	title := htmlstd.EscapeString(og.Title)
+	desc := htmlstd.EscapeString(og.Description)
+	img := htmlstd.EscapeString(og.Image)
 	shopURL := "https://shop.unigoods.im" + path
-	shopURL = html.EscapeString(shopURL)
-	toEsc := html.EscapeString(to)
+	shopURL = htmlstd.EscapeString(shopURL)
+	toEsc := htmlstd.EscapeString(to)
 
 	tpl := `<!doctype html>
 <html lang="ko">
@@ -216,8 +216,8 @@ func buildHTML(path, to string, og OG) string {
 <meta property="og:url" content="%s">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="canonical" href="%s">
-<script>(function(){{ window.location.replace("%s"); }})();</script>
-<style>html,body{{background:#fff;margin:0;height:100%%;display:flex;align-items:center;justify-content:center;font:16px/1.4 -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,Apple SD Gothic Neo,Noto Sans KR,sans-serif;color:#111}}</style>
+<script>(function(){ window.location.replace("%s"); })();</script>
+<style>html,body{background:#fff;margin:0;height:100%%;display:flex;align-items:center;justify-content:center;font:16px/1.4 -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,Apple SD Gothic Neo,Noto Sans KR,sans-serif;color:#111}</style>
 </head>
 <body>
 <noscript>자바스크립트가 꺼져 있어요. <a href="%s">여기를 눌러 이동</a>하세요.</noscript>
