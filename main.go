@@ -40,6 +40,9 @@ func main() {
 	cfg, err := loadConfig(cfgPath)
 	must(err)
 
+	// ensure output directory exists
+	if err := os.MkdirAll(outDir, 0o755); err != nil { log.Fatal(err) }
+
 	if strings.TrimSpace(cfg.CNAME) != "" {
 		must(os.WriteFile(filepath.Join(outDir, "CNAME"), []byte(cfg.CNAME+"\n"), 0644))
 	}
