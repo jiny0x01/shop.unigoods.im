@@ -3,6 +3,7 @@
   "globalOG": "/assets/logo-og.png",
   "defaultRedirect": "https://mkt.shopping.naver.com/link/683b2c1bb7c8c573b3055977",
   "routes": {
+    "/": "https://mkt.shopping.naver.com/link/683b2c1bb7c8c573b3055977",
     "/keycapkeyring/custom": "https://mkt.shopping.naver.com/link/68af542b4d569c2314bf3583",
     "/keycapkeyring/gomguk": "https://mkt.shopping.naver.com/link/68af542b2a09e05049c86c2a",
     "/keycapkeyring/paper": "https://mkt.shopping.naver.com/link/68af542b2a09e05049c86c2a",
