@@ -25,10 +25,18 @@ jobs:
         with:
           go-version: '1.22'
 
+      # ▶ 모듈 파일이 없으면 여기서 생성 (있다면 그대로 통과)
+      - name: Ensure Go modules
+        run: |
+          test -f go.mod || go mod init shop-unigoods-generator
+          go get golang.org/x/net/html@latest
+
       - name: Generate static pages
         run: go run . -config routes.json -out ./public
 
-      # ⬇️ v3 로 업그레이드 (v2는 내부에 upload-artifact v3를 써서 막힘)
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
@@ -41,7 +49,6 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
-      # ⬇️ v4 로 업그레이드
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
