@@ -28,6 +28,13 @@ jobs:
       - name: Create output dir
         run: mkdir -p ./public
 
+      # ✅ 모듈/의존성 확보: go.mod 없으면 생성, 필요한 패키지 설치, go.sum 생성
+      - name: Ensure Go modules & deps
+        run: |
+          test -f go.mod || go mod init shop-unigoods-generator
+          go get golang.org/x/net/html@v0.30.0
+          go mod tidy
+
       - name: Generate static pages
         run: go run . -config routes.json -out ./public
 
