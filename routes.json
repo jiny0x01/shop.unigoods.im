@@ -1,0 +1,16 @@
+{
+  "cname": "shop.unigoods.im",
+  "globalOG": "/assets/logo-og.png",
+  "defaultRedirect": "https://mkt.shopping.naver.com",
+  "routes": {
+    "/keycapkeyring/custom": "https://mkt.shopping.naver.com/link/68af542b4d569c2314bf3583",
+    "/keycapkeyring/gomguk": "https://mkt.shopping.naver.com/link/68af542b2a09e05049c86c2a",
+    "/keycapkeyring/paper": "https://mkt.shopping.naver.com/link/68af542b2a09e05049c86c2a",
+    "/keycapkeyring/mbti": "https://mkt.shopping.naver.com/link/68af542be297a522b23ecad3",
+    "/keycapkeyring/mbti/slim": "https://mkt.shopping.naver.com/link/68af542b701e540a81c3fcfc",
+    "/keycapkeyring/cheese": "https://mkt.shopping.naver.com/link/68af542bd657ac14f4a39ea0",
+    "/keycapkeyring/guide": "https://www.youtube.com/@shop.unigoods",
+    "/youtube": "https://www.youtube.com/@shop.unigoods",
+    "/insta": "https://www.instagram.com/unigoods.shop/"
+  }
+}
