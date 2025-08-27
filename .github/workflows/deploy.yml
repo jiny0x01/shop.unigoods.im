@@ -25,11 +25,8 @@ jobs:
         with:
           go-version: '1.22'
 
-      # ▶ 모듈 파일이 없으면 여기서 생성 (있다면 그대로 통과)
-      - name: Ensure Go modules
-        run: |
-          test -f go.mod || go mod init shop-unigoods-generator
-          go get golang.org/x/net/html@latest
+      - name: Create output dir
+        run: mkdir -p ./public
 
       - name: Generate static pages
         run: go run . -config routes.json -out ./public
